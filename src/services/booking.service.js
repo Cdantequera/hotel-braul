@@ -14,54 +14,29 @@ const getConfig = () => {
       } catch (error) {(error)}
     }
   }
-
   return {
-    headers: {
-      Authorization: token ? `Bearer ${token}` : ''
-    },
+    headers: { Authorization: token ? `Bearer ${token}` : '' },
     withCredentials: true 
   };
 };
 
 export const createBookingService = async (bookingData) => {
-  const token = localStorage.getItem('token');
-
   try {
-    const response = await axios.post(`${API_URL}/`, bookingData, {
-      headers: {
-        Authorization: token ? `Bearer ${token}` : '' 
-      },
-      withCredentials: true 
-    });
+    const response = await axios.post(`${API_URL}/`, bookingData, getConfig());
     return response.data;
-  } catch (error) {
-    throw error.response?.data || { message: "Error al procesar la reserva" };
-  }
+  } catch (error) { throw error.response?.data || { message: "Error al procesar" }; }
 };
 
 export const getUserBookingsService = async () => {
   try {
     const response = await axios.get(`${API_URL}/my-bookings`, getConfig());
     return response.data;
-  } catch (error) {
-    throw error.response?.data || { message: "Error al obtener tus reservas" };
-  }
+  } catch (error) { throw error.response?.data || { message: "Error al obtener reservas" }; }
 };
 
 export const cancelBookingService = async (bookingId) => {
   try {
     const response = await axios.patch(`${API_URL}/${bookingId}/cancel`, {}, getConfig());
     return response.data;
-  } catch (error) {
-    throw error.response?.data || { message: "Error al cancelar la reserva" };
-  }
-};
-
-export const reactivateBookingService = async (bookingId) => {
-  try {
-    const response = await axios.patch(`${API_URL}/${bookingId}/reactivate`, {}, getConfig());
-    return response.data;
-  } catch (error) {
-    throw error.response?.data || { message: "Error al reactivar la reserva" };
-  }
+  } catch (error) { throw error.response?.data || { message: "Error al cancelar" }; }
 };
