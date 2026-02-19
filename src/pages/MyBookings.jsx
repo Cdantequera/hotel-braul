@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Calendar, CreditCard, CheckCircle, Clock, XCircle, Loader2 } from 'lucide-react';
 import axios from 'axios';
 import { initMercadoPago, Wallet } from '@mercadopago/sdk-react';
-import { getUserBookingsService } from '../services/booking.service'; 
+import { getUserBookingsService } from '../services/booking.service';
 
 const backendUrl = import.meta.env.VITE_BACKEND_URL || 'https://back-hotel-braul.onrender.com';
 
@@ -15,8 +15,8 @@ const MyBookings = () => {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  
-  const [preferenceIds, setPreferenceIds] = useState({}); 
+
+  const [preferenceIds, setPreferenceIds] = useState({});
   const [payingBookingId, setPayingBookingId] = useState(null);
 
   const navigate = useNavigate();
@@ -31,9 +31,10 @@ const MyBookings = () => {
         return userObj.token || null;
       } catch (error) { console.error(error); }
     }
-    
+    return null;
   };
 
+  // ✅ FIX: Array de dependencias vacío [] para que solo se ejecute una vez
   useEffect(() => {
     const token = getToken();
     if (!token) {
@@ -54,18 +55,19 @@ const MyBookings = () => {
         setLoading(false);
       }
     };
+
     fetchBookings();
-  }, );
+  }, []); 
 
   const handlePayment = async (booking) => {
     setPayingBookingId(booking._id);
     try {
       const token = getToken();
-      
+
       const response = await axios.post(
-        `${backendUrl}/api/v1/payments/create_preference`, 
+        `${backendUrl}/api/v1/payments/create_preference`,
         { bookingId: booking._id },
-        { 
+        {
           headers: { Authorization: `Bearer ${token}` },
           withCredentials: true
         }
@@ -102,81 +104,101 @@ const MyBookings = () => {
     }
   };
 
-  if (loading) return <div className="min-h-screen bg-black flex items-center justify-center text-[#C5A572] text-xl">Cargando...</div>;
+  if (loading) return (
+    <div className="min-h-screen bg-black flex items-center justify-center text-[#C5A572] text-xl">
+      <Loader2 className="animate-spin mr-3 h-6 w-6" /> Cargando...
+    </div>
+  );
 
   return (
     <div className="bg-black min-h-screen pt-24 pb-20">
       <div className="container mx-auto px-4 max-w-5xl">
         <h1 className="text-4xl font-serif font-bold text-white mb-12 uppercase tracking-widest">Mis Reservas</h1>
 
-        <div className="space-y-6">
-          {bookings.map((booking) => (
-            <div key={booking._id} className="bg-zinc-900 border border-white/5 rounded-2xl overflow-hidden flex flex-col md:flex-row hover:border-[#C5A572]/30 transition-all">
-              
-              <div className="w-full md:w-1/3 h-48 md:h-auto relative">
-                <img 
-                  src={`${backendUrl}/uploads/rooms/${booking.room?.image}`} 
-                  className="w-full h-full object-cover"
-                  onError={(e) => { e.target.src = "https://via.placeholder.com/400x300?text=Habitacion" }}
-                />
-              </div>
+        {error && (
+          <div className="bg-red-900/20 border border-red-500/30 text-red-400 p-4 rounded-lg mb-6 text-center">
+            {error}
+          </div>
+        )}
 
-              <div className="p-8 w-full md:w-2/3 flex flex-col justify-between">
-                <div>
-                  <div className="flex justify-between items-start mb-6">
-                    <h3 className="text-2xl font-serif font-bold text-white uppercase tracking-wider">{booking.room?.type}</h3>
-                    {getStatusBadge(booking.status)}
-                  </div>
+        {bookings.length === 0 && !error ? (
+          <div className="text-center py-20 text-gray-500">
+            <Calendar className="h-12 w-12 mx-auto mb-4 opacity-30" />
+            <p className="text-lg uppercase tracking-widest">No tienes reservas aún</p>
+            <Link to="/rooms" className="mt-6 inline-block px-8 py-3 bg-[#C5A572] text-black font-bold uppercase tracking-widest text-sm hover:bg-white transition-all">
+              Ver Habitaciones
+            </Link>
+          </div>
+        ) : (
+          <div className="space-y-6">
+            {bookings.map((booking) => (
+              <div key={booking._id} className="bg-zinc-900 border border-white/5 rounded-2xl overflow-hidden flex flex-col md:flex-row hover:border-[#C5A572]/30 transition-all">
 
-                  <div className="grid grid-cols-2 gap-4 mb-6">
-                    <div className="bg-black/40 p-3 rounded border border-white/5">
-                      <p className="text-[10px] text-[#C5A572] uppercase tracking-widest mb-1">Entrada</p>
-                      <p className="text-white text-sm">{formatDate(booking.checkIn)}</p>
-                    </div>
-                    <div className="bg-black/40 p-3 rounded border border-white/5">
-                      <p className="text-[10px] text-[#C5A572] uppercase tracking-widest mb-1">Salida</p>
-                      <p className="text-white text-sm">{formatDate(booking.checkOut)}</p>
-                    </div>
-                  </div>
+                <div className="w-full md:w-1/3 h-48 md:h-auto relative">
+                  <img
+                    src={`${backendUrl}/uploads/rooms/${booking.room?.image}`}
+                    className="w-full h-full object-cover"
+                    onError={(e) => { e.target.src = "https://via.placeholder.com/400x300?text=Habitacion" }}
+                  />
                 </div>
 
-                <div className="flex flex-col border-t border-white/10 pt-6">
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center text-[#C5A572]">
-                      <CreditCard className="w-5 h-5 mr-3" />
-                      <span className="text-2xl font-bold font-serif">${booking.totalPrice}</span>
+                <div className="p-8 w-full md:w-2/3 flex flex-col justify-between">
+                  <div>
+                    <div className="flex justify-between items-start mb-6">
+                      <h3 className="text-2xl font-serif font-bold text-white uppercase tracking-wider">{booking.room?.type}</h3>
+                      {getStatusBadge(booking.status)}
                     </div>
 
-                    <div className="flex gap-3">
-                      {booking.status === 'confirmed' && booking.paymentStatus !== 'paid' && !preferenceIds[booking._id] && (
-                        <button 
-                          onClick={() => handlePayment(booking)}
-                          disabled={payingBookingId === booking._id}
-                          className="px-8 py-2 bg-[#C5A572] text-black font-bold uppercase tracking-widest hover:bg-white transition-all text-xs"
-                        >
-                          {payingBookingId === booking._id ? 'Generando...' : 'Pagar Reserva'}
-                        </button>
-                      )}
-                      
-                      {booking.paymentStatus === 'paid' && (
-                        <span className="px-6 py-2 bg-green-500/10 text-green-500 border border-green-500/20 text-xs font-bold uppercase tracking-widest rounded">Pagado</span>
-                      )}
+                    <div className="grid grid-cols-2 gap-4 mb-6">
+                      <div className="bg-black/40 p-3 rounded border border-white/5">
+                        <p className="text-[10px] text-[#C5A572] uppercase tracking-widest mb-1">Entrada</p>
+                        <p className="text-white text-sm">{formatDate(booking.checkIn)}</p>
+                      </div>
+                      <div className="bg-black/40 p-3 rounded border border-white/5">
+                        <p className="text-[10px] text-[#C5A572] uppercase tracking-widest mb-1">Salida</p>
+                        <p className="text-white text-sm">{formatDate(booking.checkOut)}</p>
+                      </div>
                     </div>
                   </div>
 
-                  {preferenceIds[booking._id] && (
-                    <div className="mt-4 bg-white/5 p-4 rounded-lg">
-                      <Wallet 
-                        initialization={{ preferenceId: preferenceIds[booking._id] }} 
-                        customization={{ texts: { valueProp: 'smart_option' } }} 
-                      />
+                  <div className="flex flex-col border-t border-white/10 pt-6">
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="flex items-center text-[#C5A572]">
+                        <CreditCard className="w-5 h-5 mr-3" />
+                        <span className="text-2xl font-bold font-serif">${booking.totalPrice}</span>
+                      </div>
+
+                      <div className="flex gap-3">
+                        {booking.status === 'confirmed' && booking.paymentStatus !== 'paid' && !preferenceIds[booking._id] && (
+                          <button
+                            onClick={() => handlePayment(booking)}
+                            disabled={payingBookingId === booking._id}
+                            className="px-8 py-2 bg-[#C5A572] text-black font-bold uppercase tracking-widest hover:bg-white transition-all text-xs"
+                          >
+                            {payingBookingId === booking._id ? 'Generando...' : 'Pagar Reserva'}
+                          </button>
+                        )}
+
+                        {booking.paymentStatus === 'paid' && (
+                          <span className="px-6 py-2 bg-green-500/10 text-green-500 border border-green-500/20 text-xs font-bold uppercase tracking-widest rounded">Pagado</span>
+                        )}
+                      </div>
                     </div>
-                  )}
+
+                    {preferenceIds[booking._id] && (
+                      <div className="mt-4 bg-white/5 p-4 rounded-lg">
+                        <Wallet
+                          initialization={{ preferenceId: preferenceIds[booking._id] }}
+                          customization={{ texts: { valueProp: 'smart_option' } }}
+                        />
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

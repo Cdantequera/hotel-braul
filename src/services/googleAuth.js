@@ -23,14 +23,16 @@ class GoogleAuthService {
       }, { withCredentials: true });
 
       if (response.data.ok) {
-        // ✅ Guardar token Y usuario correctamente
+        // ✅ FIX: Guardar el token correctamente
         if (response.data.token) {
           localStorage.setItem("token", response.data.token);
         }
+
         const userData = response.data.user || response.data;
         localStorage.setItem("user", JSON.stringify(userData));
 
-        return response.data; // devuelve todo para que Login.jsx maneje la redirección
+        // ✅ FIX: Devolver todo el response.data para que Login.jsx maneje la redirección
+        return response.data;
       } else {
         throw new Error("Error en el backend del hotel");
       }
