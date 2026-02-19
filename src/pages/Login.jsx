@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import LoginForm from "../components/auth/LoginForm";
 import GoogleLoginButton from "../components/auth/GoogleLoginButton";
+import Header from "../components/header/Header";
+import Footer from "../components/footer/Footer";
 
 
 function Login() {
@@ -38,8 +40,10 @@ function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 px-4 sm:px-6 lg:px-8 pt-25 pb-4 md:pt-25 md:py-12 transition-colors duration-300">
-      <div className="max-w-md w-full space-y-8 bg-white dark:bg-black p-6 md:p-8 rounded-xl shadow-[0_0_40px_rgba(0,0,0,0.1)] dark:shadow-[0_0_40px_rgba(197,165,114,0.15)] border border-gray-100 dark:border-[#C5A572]/30">
+    <>
+      <Header />
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 px-4 sm:px-6 lg:px-8 pt-25 pb-4 md:pt-25 md:py-12 transition-colors duration-300">
+        <div className="max-w-md w-full space-y-8 bg-white dark:bg-black p-6 md:p-8 rounded-xl shadow-[0_0_40px_rgba(0,0,0,0.1)] dark:shadow-[0_0_40px_rgba(197,165,114,0.15)] border border-gray-100 dark:border-[#C5A572]/30">
         
         <div className="flex flex-col items-center">
           <h2 className="mt-2 text-center text-2xl md:text-3xl font-serif font-bold text-gray-900 dark:text-white tracking-wide uppercase">
@@ -95,6 +99,8 @@ function Login() {
         </div>
       </div>
     </div>
+    <Footer />
+    </>
   );
 }
 
