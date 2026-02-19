@@ -190,7 +190,7 @@ const Settings = () => {
                     <button
                         type="submit"
                         disabled={saving}
-                        className="flex items-center gap-3 px-8 py-3 bg-gradient-to-r from-[#C5A572] to-[#b08d4e] text-black font-bold uppercase tracking-widest rounded-lg hover:shadow-[0_0_20px_rgba(197,165,114,0.4)] transition-all disabled:opacity-60"
+                        className="flex items-center gap-3 px-8 py-3 bg-linear-to-r from-[#C5A572] to-[#b08d4e] text-black font-bold uppercase tracking-widest rounded-lg hover:shadow-[0_0_20px_rgba(197,165,114,0.4)] transition-all disabled:opacity-60"
                     >
                         {saving
                             ? <><Loader2 className="h-5 w-5 animate-spin" /> Guardando...</>
