@@ -1,8 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Facebook, Instagram, Twitter, MapPin, Phone, Mail } from 'lucide-react';
+import useSiteConfig from '../hooks/useSiteConfig';
 
 const Footer = () => {
+  const { config } = useSiteConfig();
+
   return (
     <footer className="bg-black border-t border-[#C5A572]/30 pt-16 pb-8 mt-auto z-10 relative">
       <div className="container mx-auto px-4">
@@ -25,7 +28,6 @@ const Footer = () => {
             <h4 className="text-[#C5A572] font-bold uppercase tracking-widest text-xs mb-6">Explorar</h4>
             <ul className="space-y-3">
               <li><Link to="/" className="text-gray-400 hover:text-[#C5A572] transition-colors text-sm">Inicio</Link></li>
-              {/* NUEVO ENLACE AGREGADO AQUÍ */}
               <li><Link to="/about" className="text-gray-400 hover:text-[#C5A572] transition-colors text-sm">Sobre Nosotros</Link></li>
               <li><Link to="/rooms" className="text-gray-400 hover:text-[#C5A572] transition-colors text-sm">Habitaciones</Link></li>
               <li><Link to="/services" className="text-gray-400 hover:text-[#C5A572] transition-colors text-sm">Servicios</Link></li>
@@ -33,7 +35,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* COLUMNA 3: CONTACTO */}
+          {/* COLUMNA 3: CONTACTO — datos dinámicos del backend */}
           <div>
             <h4 className="text-[#C5A572] font-bold uppercase tracking-widest text-xs mb-6">Contacto</h4>
             <ul className="space-y-4">
@@ -41,30 +43,47 @@ const Footer = () => {
                 <MapPin className="h-5 w-5 text-[#C5A572] shrink-0" />
                 <span>Av. Francisco de Aguirre esquina Muñecas, Tucuman, Argentina</span>
               </li>
-              <li className="flex items-center space-x-3 text-gray-400 text-sm">
-                <Phone className="h-5 w-5 text-[#C5A572] shrink-0" />
-                <span>+54 38166088441</span>
-              </li>
-              <li className="flex items-center space-x-3 text-gray-400 text-sm">
-                <Mail className="h-5 w-5 text-[#C5A572] shrink-0" />
-                <span>reservas@hotelbraul.com</span>
-              </li>
+              {config.phone && (
+                <li className="flex items-center space-x-3 text-gray-400 text-sm">
+                  <Phone className="h-5 w-5 text-[#C5A572] shrink-0" />
+                  <span>{config.phone}</span>
+                </li>
+              )}
+              {config.email && (
+                <li className="flex items-center space-x-3 text-gray-400 text-sm">
+                  <Mail className="h-5 w-5 text-[#C5A572] shrink-0" />
+                  <span>{config.email}</span>
+                </li>
+              )}
             </ul>
           </div>
 
-          {/* COLUMNA 4: SOCIAL */}
+          {/* COLUMNA 4: SOCIAL — solo muestra íconos si hay URL cargada */}
           <div>
             <h4 className="text-[#C5A572] font-bold uppercase tracking-widest text-xs mb-6">Síguenos</h4>
             <div className="flex space-x-4">
-              <a href="#" className="h-10 w-10 rounded-full border border-gray-800 bg-gray-900 flex items-center justify-center text-gray-400 hover:border-[#C5A572] hover:text-[#C5A572] hover:scale-110 transition-all duration-300">
-                <Facebook className="h-5 w-5" />
-              </a>
-              <a href="#" className="h-10 w-10 rounded-full border border-gray-800 bg-gray-900 flex items-center justify-center text-gray-400 hover:border-[#C5A572] hover:text-[#C5A572] hover:scale-110 transition-all duration-300">
-                <Instagram className="h-5 w-5" />
-              </a>
-              <a href="#" className="h-10 w-10 rounded-full border border-gray-800 bg-gray-900 flex items-center justify-center text-gray-400 hover:border-[#C5A572] hover:text-[#C5A572] hover:scale-110 transition-all duration-300">
-                <Twitter className="h-5 w-5" />
-              </a>
+              {config.facebook && (
+                <a href={config.facebook} target="_blank" rel="noopener noreferrer"
+                  className="h-10 w-10 rounded-full border border-gray-800 bg-gray-900 flex items-center justify-center text-gray-400 hover:border-[#C5A572] hover:text-[#C5A572] hover:scale-110 transition-all duration-300">
+                  <Facebook className="h-5 w-5" />
+                </a>
+              )}
+              {config.instagram && (
+                <a href={config.instagram} target="_blank" rel="noopener noreferrer"
+                  className="h-10 w-10 rounded-full border border-gray-800 bg-gray-900 flex items-center justify-center text-gray-400 hover:border-[#C5A572] hover:text-[#C5A572] hover:scale-110 transition-all duration-300">
+                  <Instagram className="h-5 w-5" />
+                </a>
+              )}
+              {config.twitter && (
+                <a href={config.twitter} target="_blank" rel="noopener noreferrer"
+                  className="h-10 w-10 rounded-full border border-gray-800 bg-gray-900 flex items-center justify-center text-gray-400 hover:border-[#C5A572] hover:text-[#C5A572] hover:scale-110 transition-all duration-300">
+                  <Twitter className="h-5 w-5" />
+                </a>
+              )}
+              {/* Si no hay ninguna red cargada, mostramos mensaje sutil */}
+              {!config.facebook && !config.instagram && !config.twitter && (
+                <p className="text-gray-600 text-xs italic">Próximamente</p>
+              )}
             </div>
           </div>
         </div>
