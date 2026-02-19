@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Facebook, Instagram, Twitter, MapPin, Phone, Mail } from 'lucide-react';
-import useSiteConfig from '../hooks/useSiteConfig';
+import useSiteConfig from '../../hook/useSiteConfig';
 
 const Footer = () => {
   const { config } = useSiteConfig();

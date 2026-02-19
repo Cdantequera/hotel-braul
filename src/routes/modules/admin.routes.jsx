@@ -3,6 +3,7 @@ import { Navigate } from 'react-router-dom';
 import AdminLayout from '../../layouts/AdminLayout';
 import Dashboard from '../../pages/admin/Dashboard';
 import ManageRooms from '../../pages/admin/ManageRooms';
+import Settings from '../../pages/admin/Settings';
 
 export const adminRoutes = [
   {
@@ -12,6 +13,7 @@ export const adminRoutes = [
       { path: "", element: <Navigate to="dashboard" replace /> },
       { path: "dashboard", element: <Dashboard /> },
       { path: "rooms", element: <ManageRooms /> },
+      { path: "settings", element: <Settings /> },
       
     ]
   }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { MapPin, Phone, Mail, Clock, Send, MessageCircle } from 'lucide-react';
-import useSiteConfig from '../hooks/useSiteConfig';
+import useSiteConfig from '../hook/useSiteConfig';
 
 function Contact() {
   const { config, loading } = useSiteConfig();
