@@ -16,7 +16,7 @@
     "@tailwindcss/vite": "^4.1.17",
     "axios": "^1.13.4",
     "bcryptjs": "^3.0.3",
-    "firebase": "^12.6.0",
+    "firebase": "^12.9.0",
     "framer-motion": "^12.29.2",
     "lucide-react": "^0.563.0",
     "react": "^19.2.0",
