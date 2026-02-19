@@ -28,8 +28,8 @@ const AdminLayout = () => {
   const menuItems = [
     { name: 'Dashboard', path: '/admin/dashboard', icon: LayoutDashboard },
     { name: 'Habitaciones', path: '/admin/rooms', icon: BedDouble },
-    { name: 'Reservas', path: '/admin/bookings', icon: CalendarDays }, // Futuro
-    { name: 'Huéspedes', path: '/admin/users', icon: Users }, // Futuro
+    { name: 'Reservas', path: '/admin/bookings', icon: CalendarDays }, 
+    { name: 'Huéspedes', path: '/admin/users', icon: Users },
     { name: 'Configuración', path: '/admin/settings', icon: Settings },
   ];
 

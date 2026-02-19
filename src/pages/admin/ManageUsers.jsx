@@ -30,8 +30,8 @@ const ManageUsers = () => {
         setUsers(res.data.users || res.data.data); // Depende de cómo envíes los datos desde el back
       }
     } catch (error) {
-      error("Endpoint de usuarios posiblemente no creado aún");
-      // toast.error('Error al cargar huéspedes');
+      console.error(error);
+      console.log("Endpoint de usuarios posiblemente no creado aún");
     } finally {
       setLoading(false);
     }

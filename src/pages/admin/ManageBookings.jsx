@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Loader2, CalendarDays, Search, Eye, Trash2 } from 'lucide-react';
-
+import { toast } from 'react-toastify';
 
 const backendUrl = import.meta.env.VITE_BACKEND_URL || 'https://back-hotel-braul.onrender.com';
 
@@ -31,7 +31,8 @@ const ManageBookings = () => {
         setBookings(sorted);
       }
     } catch (error) {
-      error('Error al cargar las reservas');
+      console.error(error);
+      toast.error('Error al cargar las reservas');
     } finally {
       setLoading(false);
     }
