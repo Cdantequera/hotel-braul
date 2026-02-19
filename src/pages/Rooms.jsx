@@ -60,7 +60,7 @@ function Rooms() {
   const [rooms, setRooms] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-  const location = useLocation();
+  const location = useLocation(); 
 
   const searchState = location.state || {};
   const { checkIn, checkOut, guests } = searchState;
@@ -84,7 +84,7 @@ function Rooms() {
         }
     };
     fetchRooms();
-  }, [checkIn, checkOut]);
+  }, [checkIn, checkOut]); 
 
   const handleReserveClick = (roomId) => {
     let token = localStorage.getItem('token');
@@ -94,7 +94,7 @@ function Rooms() {
          try {
            const userObj = JSON.parse(userStr);
            token = userObj.token;
-         } catch (error) {(error);}
+         } catch (error) {(error)}
        }
     }
 

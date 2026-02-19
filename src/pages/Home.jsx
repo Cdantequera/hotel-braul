@@ -3,12 +3,14 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Calendar, Users, Search, ArrowRight, Star, Wifi, Coffee, Waves, Sparkles } from 'lucide-react';
 
+const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:4000';
+
 const RoomCard = ({ room, onReserve }) => (
     <div className="block group relative overflow-hidden rounded-xl h-[450px] border border-white/5 hover:border-[#C5A572]/30 transition-colors">
         <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-all duration-500 z-10"></div>
         
         <img 
-            src={`${import.meta.env.VITE_BACKEND_URL || 'http://localhost:4000'}/uploads/rooms/${room.image}`} 
+            src={`${backendUrl}/uploads/rooms/${room.image}`} 
             alt={room.type} 
             className="absolute inset-0 w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-in-out" 
             onError={(e) => { e.target.src = "https://via.placeholder.com/400x300?text=Imagen+No+Disponible" }}
@@ -44,32 +46,24 @@ const RoomCard = ({ room, onReserve }) => (
     </div>
 );
 
-// --- WIDGET DE RESERVAS REPARADO ---
 const BookingWidget = () => {
   const navigate = useNavigate();
-  // 1. Agregamos estados para guardar las fechas que elige el usuario
   const [checkIn, setCheckIn] = useState('');
   const [checkOut, setCheckOut] = useState('');
   const [guests, setGuests] = useState('2 Personas');
 
-  // 2. z-50 hace que los inputs estén por encima de todo y se puedan clickear
   const inputStyles = "w-full bg-transparent border-b border-gray-500 text-white placeholder-gray-400 focus:outline-none focus:border-[#C5A572] py-2 transition-colors text-sm sm:text-base relative z-50";
   const labelStyles = "block text-[#C5A572] text-xs font-bold uppercase tracking-widest mb-1";
 
   const handleSearch = (e) => {
     e.preventDefault();
-    
-    // Validaciones básicas de fechas
     if (checkIn && checkOut && new Date(checkIn) >= new Date(checkOut)) {
         alert("La fecha de salida debe ser posterior a la de llegada.");
         return;
     }
-
-    // 3. Enviamos las fechas ocultas en el 'estado' de la navegación hacia la ruta /rooms
     navigate('/rooms', { state: { checkIn, checkOut, guests } });
   };
 
-  // Para bloquear fechas pasadas en el calendario
   const today = new Date().toISOString().split('T')[0];
 
   return (
@@ -80,12 +74,8 @@ const BookingWidget = () => {
             <div className="flex items-center">
                 <Calendar className="h-5 w-5 text-gray-400 mr-2" />
                 <input 
-                  type="date" 
-                  min={today}
-                  value={checkIn}
-                  onChange={(e) => setCheckIn(e.target.value)}
-                  className={inputStyles} 
-                  style={{ colorScheme: 'dark' }} // Para que el calendario se vea bien en fondo negro
+                  type="date" min={today} value={checkIn} onChange={(e) => setCheckIn(e.target.value)}
+                  className={inputStyles} style={{ colorScheme: 'dark' }} 
                 />
             </div>
         </div>
@@ -94,12 +84,8 @@ const BookingWidget = () => {
             <div className="flex items-center">
                 <Calendar className="h-5 w-5 text-gray-400 mr-2" />
                 <input 
-                  type="date" 
-                  min={checkIn || today}
-                  value={checkOut}
-                  onChange={(e) => setCheckOut(e.target.value)}
-                  className={inputStyles} 
-                  style={{ colorScheme: 'dark' }}
+                  type="date" min={checkIn || today} value={checkOut} onChange={(e) => setCheckOut(e.target.value)}
+                  className={inputStyles} style={{ colorScheme: 'dark' }}
                 />
             </div>
         </div>
@@ -107,11 +93,7 @@ const BookingWidget = () => {
              <label className={labelStyles}>Huéspedes</label>
              <div className="flex items-center">
                 <Users className="h-5 w-5 text-gray-400 mr-2" />
-                <select 
-                  value={guests}
-                  onChange={(e) => setGuests(e.target.value)}
-                  className={`${inputStyles} appearance-none bg-no-repeat cursor-pointer`}
-                >
+                <select value={guests} onChange={(e) => setGuests(e.target.value)} className={`${inputStyles} appearance-none bg-no-repeat cursor-pointer`}>
                     <option className="bg-gray-900">2 Personas</option>
                     <option className="bg-gray-900">1 Persona</option>
                     <option className="bg-gray-900">4 Personas</option>
@@ -130,12 +112,11 @@ const BookingWidget = () => {
 function Home() {
   const [featuredRooms, setFeaturedRooms] = useState([]);
   const navigate = useNavigate();
-  const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:4000';
 
   useEffect(() => {
     const fetchRooms = async () => {
         try {
-      const res = await axios.get(`${backendUrl}/api/v1/rooms`);
+            const res = await axios.get(`${backendUrl}/api/v1/rooms`);
             if (res.data.ok) {
                 const allRooms = res.data.data;
                 let selected = allRooms.filter(r => r.isFeatured);
@@ -152,24 +133,23 @@ function Home() {
         }
     };
     fetchRooms();
-  }, );
+  }, []);
 
   const handleReserveClick = (roomId) => {
     let token = localStorage.getItem('token');
     if (!token) {
-      const userStr = localStorage.getItem('user');
-      if (userStr) {
-        try {
-          const userObj = JSON.parse(userStr);
-          token = userObj?.token || null;
-        } catch (error) {(error);}
-
-      }
+       const userStr = localStorage.getItem('user');
+       if (userStr) {
+         try {
+           const userObj = JSON.parse(userStr);
+           token = userObj.token;
+         } catch (error) {(error)}
+       }
     }
 
     if (!token) {
       alert("¡Espera! Para poder reservar necesitas iniciar sesión o registrarte.");
-      navigate('/login', { state: { returnTo: `/room/${roomId}` } });
+      navigate('/login', { state: { returnTo: `/room/${roomId}` } }); 
     } else {
       navigate(`/room/${roomId}`);
     }
