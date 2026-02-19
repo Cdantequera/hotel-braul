@@ -34,7 +34,6 @@ const MyBookings = () => {
     return null;
   };
 
-  // ✅ FIX: Array de dependencias vacío [] para que solo se ejecute una vez
   useEffect(() => {
     const token = getToken();
     if (!token) {
@@ -44,6 +43,7 @@ const MyBookings = () => {
 
     const fetchBookings = async () => {
       try {
+        // ✅ El servicio ya maneja el token internamente con getConfig()
         const response = await getUserBookingsService();
         if (response.ok) {
           setBookings(response.bookings);
@@ -57,7 +57,7 @@ const MyBookings = () => {
     };
 
     fetchBookings();
-  }, []); 
+  }, []);
 
   const handlePayment = async (booking) => {
     setPayingBookingId(booking._id);
