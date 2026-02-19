@@ -159,7 +159,7 @@ function Home() {
     <div className="bg-black min-h-screen">
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <img src="https://images.pexels.com/photos/261102/pexels-photo-261102.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Hotel View" className="w-full h-full object-cover opacity-60" />
+          <img src="https://images.pexels.com/photos/1134176/pexels-photo-1134176.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Hotel View" className="w-full h-full object-cover opacity-60" />
           <div className="absolute inset-0 bg-linear-to-b from-black/20 via-black/30 to-black"></div>
         </div>
         <div className="relative z-10 container mx-auto px-4 text-center pt-20">
@@ -237,7 +237,7 @@ function Home() {
 
       <section className="relative py-24 flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
-             <img src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461?q=80&w=2070&auto=format&fit=crop" alt="Atmosphere" className="w-full h-full object-cover opacity-50" />
+             <img src="https://images.pexels.com/photos/2034335/pexels-photo-2034335.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Atmosphere" className="w-full h-full object-cover opacity-50" />
              <div className="absolute inset-0 bg-black/60"></div>
         </div>
         <div className="relative z-10 text-center px-4">

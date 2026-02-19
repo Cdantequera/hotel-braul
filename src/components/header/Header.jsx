@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X, LogOut, User } from 'lucide-react'; 
 import axios from 'axios';
-import logoHotel from '../../assets/logo-braul.png'; 
+ 
 
 const backendUrl = import.meta.env.VITE_BACKEND_URL || 'https://back-hotel-braul.onrender.com';
 
@@ -81,14 +81,6 @@ const Header = () => {
         <div className="flex justify-between items-center">
           
           <Link to="/" className="flex items-center space-x-4 group">
-            <div className={`relative rounded-full border-2 border-[#C5A572] shadow-[0_0_20px_rgba(197,165,114,0.3)] transition-all duration-500 flex items-center justify-center bg-black/50 ${scrolled ? 'h-12 w-12' : 'h-16 w-16'}`}>
-               <img 
-                 src={logoHotel} 
-                 alt="Hotel Bra'ul Logo" 
-                 className="h-full w-full object-cover rounded-full scale-110" 
-               />
-            </div>
-
             <div className="flex flex-col">
               <span className={`font-serif font-bold tracking-widest uppercase text-white leading-none transition-all duration-500 ${scrolled ? 'text-xl' : 'text-2xl'} drop-shadow-lg`}>
                 HOTEL <span className="text-[#C5A572]">BRA'UL</span>

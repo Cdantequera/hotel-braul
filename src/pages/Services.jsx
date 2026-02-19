@@ -1,6 +1,6 @@
 import React from 'react';
 import { Waves, Utensils, Dumbbell, Car, Wine, Music } from 'lucide-react';
-const backendUrl = import.meta.env.VITE_BACKEND_URL || 'https://back-hotel-braul.onrender.com';
+
 
 const ServiceCard = ({ icon, title, desc, img }) => {
   const Icon = icon; 
@@ -38,37 +38,37 @@ function Services() {
                 icon={Waves} 
                 title="Spa Futurista" 
                 desc="Tratamientos de vanguardia con crioterapia y cámaras de aislamiento sensorial."
-                img="https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?q=80&w=2070&auto=format&fit=crop"
+                img="https://images.pexels.com/photos/3997989/pexels-photo-3997989.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
             />
              <ServiceCard 
                 icon={Utensils} 
                 title="Gastronomía Molecular" 
                 desc="Un viaje culinario donde la ciencia y el sabor se encuentran. Menú de 12 pasos."
-                img="https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=1974&auto=format&fit=crop"
+                img="https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
             />
              <ServiceCard 
                 icon={Dumbbell} 
                 title="Tech Gym" 
                 desc="Equipamiento inteligente que se adapta a tu biomecánica en tiempo real."
-                img="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2070&auto=format&fit=crop"
+                img="https://images.pexels.com/photos/1552252/pexels-photo-1552252.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
             />
              <ServiceCard 
                 icon={Car} 
                 title="Transporte Privado" 
                 desc="Flota de vehículos eléctricos de lujo a tu disposición las 24 horas."
-                img="https://images.unsplash.com/photo-1562426509-5044a121aa49?q=80&w=2070&auto=format&fit=crop"
+                img="https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
             />
              <ServiceCard 
                 icon={Wine} 
                 title="Cava Subterránea" 
                 desc="Selección de las mejores etiquetas del mundo en un ambiente íntimo."
-                img="https://images.unsplash.com/photo-1569937756447-e19c3b87612f?q=80&w=2070&auto=format&fit=crop"
+                img="https://images.pexels.com/photos/1123260/pexels-photo-1123260.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
             />
              <ServiceCard 
                 icon={Music} 
                 title="Lounge Nocturno" 
                 desc="Cócteles de autor y DJs internacionales en nuestra terraza exclusiva."
-                img="https://images.unsplash.com/photo-1570575389655-b462c47e814a?q=80&w=2070&auto=format&fit=crop"
+                img="https://images.pexels.com/photos/1267320/pexels-photo-1267320.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
             />
         </div>
       </div>
