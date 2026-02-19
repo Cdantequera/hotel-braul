@@ -29,7 +29,7 @@ const ManageRooms = () => {
   const fetchRooms = async () => {
     setLoading(true);
     try {
-      const res = await axios.get('http://localhost:4000/api/v1/rooms');
+      const res = await axios.get('https://back-hotel-braul.onrender.com/api/v1/rooms');
       if (res.data.ok) setRooms(res.data.data);
     } catch (error) {
       console.error("Error cargando habitaciones:", error);
@@ -65,7 +65,7 @@ const ManageRooms = () => {
       data.append('image', formData.image); 
       data.append('isFeatured', formData.isFeatured); // Enviamos el estado de destacado
 
-      const res = await axios.post('http://localhost:4000/api/v1/rooms', data, {
+      const res = await axios.post('https://back-hotel-braul.onrender.com/api/v1/rooms', data, {
         withCredentials: true, 
         headers: { "Content-Type": "multipart/form-data" }
       });
@@ -91,7 +91,7 @@ const ManageRooms = () => {
   const handleDelete = async (id) => {
     if (!window.confirm("¿Estás seguro de eliminar esta habitación?")) return;
     try {
-      await axios.delete(`http://localhost:4000/api/v1/rooms/${id}`, { withCredentials: true });
+      await axios.delete(`https://back-hotel-braul.onrender.com/api/v1/rooms/${id}`, { withCredentials: true });
       toast.success("Habitación eliminada");
       fetchRooms();
     } catch (error) {
@@ -105,7 +105,7 @@ const ManageRooms = () => {
   const toggleFeature = async (room) => {
     try {
         const newValue = !room.isFeatured;
-        await axios.put(`http://localhost:4000/api/v1/rooms/${room._id}`, 
+        await axios.put(`https://back-hotel-braul.onrender.com/api/v1/rooms/${room._id}`, 
             { isFeatured: newValue }, 
             { withCredentials: true }
         );
@@ -221,7 +221,7 @@ const ManageRooms = () => {
                         
                         <div className="h-56 overflow-hidden relative">
                             <img 
-                                src={`http://localhost:4000/uploads/rooms/${room.image}`} 
+                                src={`https://back-hotel-braul.onrender.com/uploads/rooms/${room.image}`} 
                                 alt={`Room ${room.number}`} 
                                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                                 onError={(e) => { e.target.src = "https://via.placeholder.com/400x300?text=Sin+Imagen" }} 

@@ -4,7 +4,7 @@ import axios from "axios";
 import { Mail, ArrowLeft, Loader2, CheckCircle } from "lucide-react";
 import logoHotel from '../assets/logo-braul.png'; 
 
-const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:4000';
+const backendUrl = import.meta.env.VITE_BACKEND_URL || 'https://back-hotel-braul.onrender.com';
 
 function ForgotPassword() {
   const [email, setEmail] = useState("");

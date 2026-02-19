@@ -5,7 +5,7 @@ import axios from 'axios';
 import { initMercadoPago, Wallet } from '@mercadopago/sdk-react';
 import { getUserBookingsService } from '../services/booking.service'; 
 
-const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:4000';
+const backendUrl = import.meta.env.VITE_BACKEND_URL || 'https://back-hotel-braul.onrender.com';
 
 initMercadoPago('APP_USR-e9eac3e8-d9c6-4088-beff-e585db30a0da', {
   locale: 'es-AR'

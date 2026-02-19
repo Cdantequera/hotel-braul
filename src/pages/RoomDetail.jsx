@@ -6,7 +6,7 @@ import { Wifi, Tv, Coffee, Wind, Star, ArrowLeft, CheckCircle } from 'lucide-rea
 import BookingForm from '../components/booking/BookingForm';
 import { createBookingService } from '../services/booking.service';
 
-const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:4000';
+const backendUrl = import.meta.env.VITE_BACKEND_URL || 'https://back-hotel-braul.onrender.com';
 
 const RoomDetail = () => {
   const { id } = useParams();

@@ -4,7 +4,7 @@ import { loginSchema } from "../../utils/validationSchema";
 import { Mail, Lock, Loader2 } from "lucide-react"; 
 import axios from "axios";
 
-const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:4000';
+const backendUrl = import.meta.env.VITE_BACKEND_URL || 'https://back-hotel-braul.onrender.com';
 
 const inputClasses = `
   appearance-none relative block w-full px-3 py-3 pl-10 

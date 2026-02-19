@@ -2,7 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { User, Mail, Lock, AlertCircle, Loader2 } from 'lucide-react';
 
-const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:4000';
+const backendUrl = import.meta.env.VITE_BACKEND_URL || 'https://back-hotel-braul.onrender.com';
 
 const RegisterForm = ({ onRegister }) => {
   const [loading, setLoading] = useState(false);

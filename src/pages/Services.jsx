@@ -1,6 +1,6 @@
 import React from 'react';
 import { Waves, Utensils, Dumbbell, Car, Wine, Music } from 'lucide-react';
-const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:4000';
+const backendUrl = import.meta.env.VITE_BACKEND_URL || 'https://back-hotel-braul.onrender.com';
 
 const ServiceCard = ({ icon, title, desc, img }) => {
   const Icon = icon; 

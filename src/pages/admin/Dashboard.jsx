@@ -26,7 +26,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchRealData = async () => {
       try {
-        const roomRes = await axios.get('http://localhost:4000/api/v1/rooms');
+        const roomRes = await axios.get('https://back-hotel-braul.onrender.com/api/v1/rooms');
         if (roomRes.data.ok) {
             setStats(prev => ({ ...prev, totalRooms: roomRes.data.data.length }));
         }

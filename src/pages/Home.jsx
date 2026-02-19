@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Calendar, Users, Search, ArrowRight, Star, Wifi, Coffee, Waves, Sparkles } from 'lucide-react';
 
-const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:4000';
+const backendUrl = import.meta.env.VITE_BACKEND_URL || 'https://back-hotel-braul.onrender.com';
 
 const RoomCard = ({ room, onReserve }) => (
     <div className="block group relative overflow-hidden rounded-xl h-[450px] border border-white/5 hover:border-[#C5A572]/30 transition-colors">

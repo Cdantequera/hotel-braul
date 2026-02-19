@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:4000';
+const backendUrl = import.meta.env.VITE_BACKEND_URL || 'https://back-hotel-braul.onrender.com';
 const API_URL = `${backendUrl}/api/v1/bookings`;
 
 const getConfig = () => {
