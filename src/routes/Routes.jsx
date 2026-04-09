@@ -1,7 +1,7 @@
-import { useRoutes } from 'react-router-dom';
-import { authRoutes } from './modules/auth.routes';
-import { publicRoutes } from './modules/public.routes';
-import { adminRoutes } from './modules/admin.routes'; // Cuando la tengas lista
+import { useRoutes } from "react-router-dom";
+import { authRoutes } from "./modules/auth.routes";
+import { publicRoutes } from "./modules/public.routes";
+import { adminRoutes } from "./modules/admin.routes"; // Cuando la tengas lista
 
 // Página 404 Simple
 const NotFound = () => (
@@ -12,12 +12,11 @@ const NotFound = () => (
 );
 
 const AppRoutes = () => {
-  
   const element = useRoutes([
     ...publicRoutes,
     ...authRoutes,
     ...adminRoutes,
-    { path: "*", element: <NotFound /> } 
+    { path: "*", element: <NotFound /> },
   ]);
 
   return element;

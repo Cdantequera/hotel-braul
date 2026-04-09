@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import googleAuthService from '../../services/googleAuth'; // Importamos el servicio actualizado
+import React, { useState } from "react";
+import googleAuthService from "../../services/googleAuth"; // Importamos el servicio actualizado
 
 const GoogleLoginButton = ({ onLogin, onError }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -9,10 +9,9 @@ const GoogleLoginButton = ({ onLogin, onError }) => {
     try {
       // 1. Esto llama a Firebase Y LUEGO a tu Backend Node.js
       const user = await googleAuthService.loginWithGoogle();
-      
+
       // 2. Si todo sale bien, notificamos al padre (Login.jsx)
       if (onLogin) onLogin(user);
-
     } catch (error) {
       console.error("Error en Google Button:", error);
       // 3. Si falla, notificamos el error para mostrarlo en rojo

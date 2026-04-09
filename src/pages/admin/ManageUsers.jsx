@@ -1,16 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { Loader2, Users, Search, Mail } from 'lucide-react';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { Loader2, Users, Search, Mail } from "lucide-react";
 
-
-const backendUrl = import.meta.env.VITE_BACKEND_URL || 'https://back-hotel-braul.onrender.com';
+const backendUrl = import.meta.env.VITE_BACKEND_URL || "https://back-hotel-braul.onrender.com";
 
 const getToken = () => {
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem("token");
   if (token) return token;
-  const userStr = localStorage.getItem('user');
+  const userStr = localStorage.getItem("user");
   if (userStr) {
-    try { return JSON.parse(userStr).token || null; } catch (e) { (e) }
+    try {
+      return JSON.parse(userStr).token || null;
+    } catch (e) {
+      e;
+    }
   }
   return null;
 };
@@ -24,7 +27,7 @@ const ManageUsers = () => {
       // Ajustá esta ruta según cómo tengas configurado tu backend
       const res = await axios.get(`${backendUrl}/api/v1/users`, {
         headers: { Authorization: `Bearer ${getToken()}` },
-        withCredentials: true
+        withCredentials: true,
       });
       if (res.data.ok) {
         setUsers(res.data.users || res.data.data); // Depende de cómo envíes los datos desde el back
@@ -49,12 +52,18 @@ const ManageUsers = () => {
             <Users className="h-8 w-8" />
             Huéspedes y Usuarios
           </h1>
-          <p className="text-gray-400 text-sm mt-1">Directorio de clientes registrados en el sistema</p>
+          <p className="text-gray-400 text-sm mt-1">
+            Directorio de clientes registrados en el sistema
+          </p>
         </div>
-        
+
         <div className="flex items-center bg-zinc-900 border border-gray-700 rounded-lg px-4 py-2 focus-within:border-[#C5A572] transition-colors w-full md:w-auto">
           <Search className="h-4 w-4 text-gray-500" />
-          <input type="text" placeholder="Buscar por email o nombre..." className="bg-transparent border-none focus:ring-0 text-sm text-white ml-2 outline-none w-full" />
+          <input
+            type="text"
+            placeholder="Buscar por email o nombre..."
+            className="bg-transparent border-none focus:ring-0 text-sm text-white ml-2 outline-none w-full"
+          />
         </div>
       </div>
 
@@ -66,7 +75,9 @@ const ManageUsers = () => {
             </div>
           ) : users.length === 0 ? (
             <div className="text-center py-12">
-                <p className="text-gray-500">No se encontraron huéspedes registrados o el endpoint aún no está listo.</p>
+              <p className="text-gray-500">
+                No se encontraron huéspedes registrados o el endpoint aún no está listo.
+              </p>
             </div>
           ) : (
             <table className="w-full text-left">
@@ -85,15 +96,20 @@ const ManageUsers = () => {
                     <td className="px-6 py-4 text-sm font-medium">{u.name}</td>
                     <td className="px-6 py-4 text-sm text-gray-400">{u.email}</td>
                     <td className="px-6 py-4">
-                      <span className={`text-xs font-bold px-2 py-1 rounded-full ${u.role === 'admin' ? 'bg-[#C5A572]/20 text-[#C5A572]' : 'bg-blue-900/30 text-blue-400'}`}>
-                        {u.role ? u.role.toUpperCase() : 'USER'}
+                      <span
+                        className={`text-xs font-bold px-2 py-1 rounded-full ${u.role === "admin" ? "bg-[#C5A572]/20 text-[#C5A572]" : "bg-blue-900/30 text-blue-400"}`}
+                      >
+                        {u.role ? u.role.toUpperCase() : "USER"}
                       </span>
                     </td>
                     <td className="px-6 py-4 text-sm text-gray-400">
                       {new Date(u.createdAt || Date.now()).toLocaleDateString()}
                     </td>
                     <td className="px-6 py-4 text-center">
-                      <a href={`mailto:${u.email}`} className="inline-block p-2 bg-zinc-800 text-gray-300 hover:text-[#C5A572] rounded transition-colors">
+                      <a
+                        href={`mailto:${u.email}`}
+                        className="inline-block p-2 bg-zinc-800 text-gray-300 hover:text-[#C5A572] rounded transition-colors"
+                      >
                         <Mail className="h-4 w-4" />
                       </a>
                     </td>

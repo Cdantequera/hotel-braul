@@ -1,24 +1,23 @@
-import React from 'react';
-import { Navigate } from 'react-router-dom';
-import AdminLayout from '../../layouts/AdminLayout';
-import Dashboard from '../../pages/admin/Dashboard';
-import ManageRooms from '../../pages/admin/ManageRooms';
-import Settings from '../../pages/admin/Settings';
-import ManageBookings from '../../pages/admin/ManageBookings';
-import ManageUsers from '../../pages/admin/ManageUsers';
+import React from "react";
+import { Navigate } from "react-router-dom";
+import AdminLayout from "../../layouts/AdminLayout";
+import Dashboard from "../../pages/admin/Dashboard";
+import ManageRooms from "../../pages/admin/ManageRooms";
+import Settings from "../../pages/admin/Settings";
+import ManageBookings from "../../pages/admin/ManageBookings";
+import ManageUsers from "../../pages/admin/ManageUsers";
 
 export const adminRoutes = [
   {
     path: "/admin",
-    element: <AdminLayout />, 
+    element: <AdminLayout />,
     children: [
       { path: "", element: <Navigate to="dashboard" replace /> },
       { path: "dashboard", element: <Dashboard /> },
       { path: "rooms", element: <ManageRooms /> },
       { path: "settings", element: <Settings /> },
-      { path: "bookings", element: <ManageBookings /> }, 
+      { path: "bookings", element: <ManageBookings /> },
       { path: "users", element: <ManageUsers /> },
-      
-    ]
-  }
+    ],
+  },
 ];
