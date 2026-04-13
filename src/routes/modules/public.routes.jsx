@@ -4,6 +4,7 @@ import Rooms from "../../pages/Rooms";
 import RoomDetail from "../../pages/RoomDetail";
 import Services from "../../pages/Services";
 import Contact from "../../pages/Contact";
+import About from "../../pages/About";
 import MyBookings from "../../pages/MyBookings";
 
 export const publicRoutes = [
@@ -16,6 +17,7 @@ export const publicRoutes = [
       { path: "/room/:id", element: <RoomDetail /> },
       { path: "/my-bookings", element: <MyBookings /> },
       { path: "/services", element: <Services /> },
+      { path: "/about", element: <About /> },
       { path: "/contact", element: <Contact /> },
     ],
   },

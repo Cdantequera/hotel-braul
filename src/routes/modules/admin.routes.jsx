@@ -6,6 +6,7 @@ import ManageRooms from "../../pages/admin/ManageRooms";
 import Settings from "../../pages/admin/Settings";
 import ManageBookings from "../../pages/admin/ManageBookings";
 import ManageUsers from "../../pages/admin/ManageUsers";
+import Messages from "../../pages/admin/Messages";
 
 export const adminRoutes = [
   {
@@ -18,6 +19,7 @@ export const adminRoutes = [
       { path: "settings", element: <Settings /> },
       { path: "bookings", element: <ManageBookings /> },
       { path: "users", element: <ManageUsers /> },
+      { path: "messages", element: <Messages /> },
     ],
   },
 ];

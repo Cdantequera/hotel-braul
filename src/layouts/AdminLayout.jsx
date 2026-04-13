@@ -10,6 +10,7 @@ import {
   Menu,
   Bell,
   Search,
+  MessageSquare
 } from "lucide-react";
 
 const AdminLayout = () => {
@@ -30,6 +31,7 @@ const AdminLayout = () => {
     { name: "Habitaciones", path: "/admin/rooms", icon: BedDouble },
     { name: "Reservas", path: "/admin/bookings", icon: CalendarDays },
     { name: "Huéspedes", path: "/admin/users", icon: Users },
+    { name: "Mensajes", path: "/admin/messages", icon: MessageSquare },
     { name: "Configuración", path: "/admin/settings", icon: Settings },
   ];
 

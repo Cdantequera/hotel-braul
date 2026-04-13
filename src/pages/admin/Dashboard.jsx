@@ -58,14 +58,43 @@ const Dashboard = () => {
 
       // Calcular stats reales
       const totalRooms = rooms.length;
-      const activeBookings = bookings.filter((b) => b.status === "confirmed").length;
-      const pendingBookings = bookings.filter((b) => b.status === "pending").length;
+      const now = new Date();
+
+      // Solo contar las reservas que abarcan el día de hoy
+      const currentBookings = bookings.filter((b) => {
+        if (b.status === "cancelled" || b.status === "completed") return false;
+        const ci = new Date(b.checkIn);
+        const co = new Date(b.checkOut);
+        return ci <= now && now <= co;
+      });
+
+      // Habitaciones únicas confirmadas hoy
+      const occupiedRooms = new Set(
+        currentBookings
+          .filter((b) => b.status === "confirmed")
+          .map((b) => (typeof b.room === "object" ? b.room?._id : b.room))
+      ).size;
+
+      // Habitaciones únicas pendientes hoy
+      const pendingRooms = new Set(
+        currentBookings
+          .filter((b) => b.status === "pending")
+          .map((b) => (typeof b.room === "object" ? b.room?._id : b.room))
+      ).size;
+
       const totalRevenue = bookings
         .filter((b) => b.paymentStatus === "paid")
         .reduce((sum, b) => sum + b.totalPrice, 0);
-      const occupancy = totalRooms > 0 ? Math.round((activeBookings / totalRooms) * 100) : 0;
 
-      setStats({ totalRooms, activeBookings, pendingBookings, totalRevenue, occupancy });
+      const occupancy = totalRooms > 0 ? Math.round((occupiedRooms / totalRooms) * 100) : 0;
+
+      setStats({
+        totalRooms,
+        activeBookings: occupiedRooms,
+        pendingBookings: pendingRooms,
+        totalRevenue,
+        occupancy,
+      });
 
       // Últimas 5 reservas por fecha de creación
       const sorted = [...bookings].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
@@ -183,7 +212,7 @@ const Dashboard = () => {
             <div>
               <div className="flex justify-between text-sm mb-1">
                 <span className="text-gray-400">Confirmadas (Ocupadas)</span>
-                <span className="text-green-400 font-bold">{stats.activeBookings} Reservas</span>
+                <span className="text-green-400 font-bold">{stats.activeBookings} Habs</span>
               </div>
               <div className="w-full bg-zinc-800 rounded-full h-2">
                 <div
@@ -195,7 +224,7 @@ const Dashboard = () => {
             <div>
               <div className="flex justify-between text-sm mb-1">
                 <span className="text-gray-400">Pendientes de pago</span>
-                <span className="text-yellow-400 font-bold">{stats.pendingBookings} Reservas</span>
+                <span className="text-yellow-400 font-bold">{stats.pendingBookings} Habs</span>
               </div>
               <div className="w-full bg-zinc-800 rounded-full h-2">
                 <div
